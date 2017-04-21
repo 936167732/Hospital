@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title> New Document </title>
+    <script type="text/javascript" src="../j"></script>
+
+    <script type="text/javascript">
+        //创建一个弹出层,title 标题，width 宽度，height 高度，content 内容，url 如果url不为空时则覆盖content加载url页面中的内容
+        function CreatePopLayerDiv(title,width,height,content,url){
+            var titles = title || "标题";
+            var Iheight=$(window).height();
+            var Iwidth =$(window).width();
+            var heights = height || 300;
+            var widths = width || 500;
+            var Oheight= (Iheight -heights) / 2;
+            var Owidth = (Iwidth - widths) /2;
+            var contents = content || "内容";
+            var div = "<div id='InDiv' style='width:"+Iwidth+"px;height:"+Iheight+"px;background-color:#888;position:absolute;z-index:10000;top:0;left:0;opacity:0.7;'><div id='offDiv' style='width:"+widths+"px;height:"+heights+"px;left:"+Owidth+"px;top:"+Oheight+"px;background-color:white;position:absolute;z-index:10001;'><h4 id='HTitle' style='margin:0px;padding:3px;background:#336699;opacity:0.9;border:1px solid ##336699;height:20px;line-height:20px;font:12px Verdana, Geneva, Arial, Helvetica, sans-serif;color:white;cursor:pointer;text-align:left;'>"+titles+"<a id='AClose' onclick='btnCloses()' style='float:right;'>关闭</a></h4><div id='Content'>"+contents+"</div></div></div>";
+            $(document.body).append(div);
+            if(url != ""){
+                $("#Content").load(url);
+            }
+        }
+        //移除弹出层
+        function RemoveDiv(){
+            $("#AClose").remove();
+            $("#HTitle").remove();
+            $("#offDiv").remove();
+            $("#InDiv").remove();
+        }
+        $(function(){
+            $("#btnTCC").click(function(){
+                CreatePopLayerDiv("闪耀的瞬间",600,400,"弹出层","table偶数行变色.html");
+            });
+        })
+        function btnCloses(){
+            RemoveDiv();
+        }
+    </script>
+</head>
+<body>
+<input type="button" id="btnTCC" value="弹出层" />
+</body>
+</html>
